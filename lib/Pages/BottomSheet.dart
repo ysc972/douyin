@@ -19,28 +19,37 @@ class ReplyFullList extends StatelessWidget {
     return Stack(children: <Widget>[
       Positioned(
         top: 0,
-        height: 30,
+        height: 60*rpx,
         width: screen_width,
         child: Container(
-          height: 30,
+          height: 60*rpx,
           child: BottomSheetTop()
         ),
       ),
       Positioned(
         top:35,
-        height: 530 ,
+        height: 550*rpx ,
         width: screen_width,
         child: SingleChildScrollView(
           controller: controller,
-          child:genReplyList(replies, controller) ,
+          child:Column(
+            children: <Widget>[
+              genReplyList(replies, controller) ,
+              Container(
+                height: 100*rpx,
+                color: Colors.redAccent,
+              )
+            ],
+          )
+          
         ),
       ),
       Positioned(
         bottom: 0,
-        height: 50,
+        height: 100*rpx,
         width: screen_width,
         child: Container(
-          height: 30,
+          height: 60*rpx,
           decoration:BoxDecoration(color: Colors.black) ,
         ),
       )
@@ -111,7 +120,8 @@ class ReplyList extends StatelessWidget {
               ),
             ],
           ),
-          genAfterReplyList(replies, controller)
+          genAfterReplyList(replies, controller),
+        
         ],
       ),
     );

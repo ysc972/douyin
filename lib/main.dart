@@ -1,4 +1,5 @@
 import 'package:douyin_demo/Pages/BottomSheet.dart';
+import 'package:douyin_demo/Widget/FavAnination.dart';
 import 'package:douyin_demo/providers/RecommendProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
@@ -34,7 +35,7 @@ class Recommendpage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screen_width = MediaQuery.of(context).size.width;
-    double scree_height = MediaQuery.of(context).size.height;
+    double screen_height = MediaQuery.of(context).size.height;
     double rpx = screen_width / 750;
     return MultiProvider(
       providers: [
@@ -46,7 +47,15 @@ class Recommendpage extends StatelessWidget {
         children: <Widget>[
           Positioned(
             top: 0,
-            height: screen_width * 0.2,
+            height: 1300 * rpx,
+            width: screen_width,
+            child: Container(
+              color: Colors.orange,
+            ),
+          ),
+          Positioned(
+            top: 0,
+            height: screen_height * 0.1,
             width: screen_width,
             child: Container(
               decoration: BoxDecoration(color: Colors.grey),
@@ -64,8 +73,8 @@ class Recommendpage extends StatelessWidget {
           ),
           Positioned(
             right: 0,
-            top: 0.3 * scree_height,
-            height: 0.4 * scree_height,
+            top: 0.3 * screen_height,
+            height: 0.4 * screen_height,
             width: 0.2 * screen_width,
             child: Container(
               // decoration: BoxDecoration(color: Colors.orange),
@@ -238,25 +247,26 @@ class BtnContent extends StatelessWidget {
           ),
           Container(
             width: 0.7 * screen_width,
-            margin: EdgeInsets.only(top: 10 * rpx, bottom: 10 * rpx),
-            child: Row(
-              
-              children: <Widget>[
+            height: 80 * rpx,
+            // margin: EdgeInsets.only(top: 10 * rpx, bottom: 10 * rpx),
+            child: Row(mainAxisSize: MainAxisSize.min, children: <Widget>[
               SizedBox(
                 width: 20 * rpx,
               ),
               Icon(Icons.music_note),
-              Expanded(
-                child: Text('${provider.mainInfo.desc}',
-                    style: TextStyle(color: Colors.white),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis),
-              )
-              // Marquee(
-              //    scrollAxis: Axis.horizontal,
-              //   text: 'testsssss',
-              
+              // Expanded(
+              //   child: Text('${provider.mainInfo.desc}',
+              //       style: TextStyle(color: Colors.white),
+              //       maxLines: 1,
+              //       overflow: TextOverflow.ellipsis),
               // )
+              Expanded(
+                // padding: const EdgeInsets.all(8.0),
+                child: Marquee(
+                  blankSpace: 100,
+                  text: 'testsssss',
+                ),
+              )
             ]),
           )
         ],
@@ -358,40 +368,44 @@ class BtnList extends StatelessWidget {
               ],
             ),
           ),
+          // IconText(
+          //     text: '${provider.mainInfo.favCount}',
+          //     iconButton: IconButton(
+          //       onPressed: () {
+          //         provider.tapFav();
+          //       },
+          //       icon: provider.mainInfo.ifFaved
+          //           ? AnimatePositiveIcon(
+          //               size: 80 * rpx,
+          //             )
+          //           : AnimateNegtiveIcon(
+          //               size: 80 * rpx,
+          //               icon: Icons.favorite,
+          //               startColor: Colors.redAccent,
+          //               endColor: Colors.white,
+          //               callback: () {}),
+          //     )),
           IconText(
-              text: '${provider.mainInfo.favCount}',
-              iconButton: IconButton(
-                onPressed: () {
-                  provider.tapFav();
-                },
-                icon: Icon(
-                  Icons.favorite,
-                  size: 80 * rpx,
-                  color: Colors.redAccent,
-                ),
-              )),
-          IconText(
-            iconButton: IconButton(
-              onPressed: () {
-                showBottom(context, screen_width, screen_height);
-              },
-              icon: Icon(
-                Icons.feedback,
-                size: 80 * rpx,
-              ),
+            iconButton: AnimateNegtiveIcon(
+              size: 80*rpx,
+              icon: Icons.chat,
+              startColor: Colors.white,
+              endColor: Colors.white,
+              callback: (){showBottom(context, screen_width, screen_height);},
+              
             ),
             text: '${provider.mainInfo.replyCount}',
           ),
-          IconText(
-            iconButton: IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.reply,
-                size: 80 * rpx,
-              ),
-            ),
-            text: '${provider.mainInfo.sharedCount}',
-          )
+          // IconText(
+          //   iconButton: IconButton(
+          //     onPressed: () {},
+          //     icon: Icon(
+          //       Icons.reply,
+          //       size: 80 * rpx,
+          //     ),
+          //   ),
+          //   text: '${provider.mainInfo.sharedCount}',
+          // )
         ],
       ),
     );
@@ -472,7 +486,7 @@ class BtnList extends StatelessWidget {
 
 class IconText extends StatelessWidget {
   const IconText({Key key, this.iconButton, this.text}) : super(key: key);
-  final IconButton iconButton;
+  final AnimateNegtiveIcon  iconButton;
   final String text;
   @override
   Widget build(BuildContext context) {
